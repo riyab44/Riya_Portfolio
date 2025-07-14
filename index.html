@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riya Bhismire - UI/UX & VFX Artist</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Framer Motion -->
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10.16.4/dist/framer-motion.umd.min.js"></script>
+
+    <!-- Cloudinary Player SDK -->
+    <script src="https://player.cloudinary.com/v1.0/cloudinary-player.min.js"></script>
+    <link href="https://player.cloudinary.com/v1.0/cloudinary-player.min.css" rel="stylesheet">
+
+    <!-- Babel Standalone for in-browser transpilation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+      :root {
+        --bg-dark: #121212;
+        --bg-mid: #1f1f2e;
+        --bg-light: #2b2b3d;
+        --text-light: #eeeeee;
+        --text-muted: #a0a0a0;
+        --accent-teal: #00f5d4;
+        --accent-magenta: #ff00f0;
+        --accent-blue: #0077ff;
+        --accent-yellow: #f0ff00;
+      }
+      /* Enable smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-dark);
+        color: var(--text-light);
+        overflow-x: hidden;
+      }
+      .font-heading {
+        font-family: 'Orbitron', sans-serif;
+      }
+      .main-gradient {
+        background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-mid) 80vh, var(--bg-light) 160vh, var(--bg-dark) 250vh);
+      }
+      .glow-on-hover-teal:hover {
+        box-shadow: 0 0 15px 2px var(--accent-teal);
+      }
+      .glow-on-hover-magenta:hover {
+        box-shadow: 0 0 15px 2px var(--accent-magenta);
+      }
+      .glow-on-hover-blue:hover {
+        box-shadow: 0 0 15px 2px var(--accent-blue);
+      }
+      .text-glow-teal {
+        text-shadow: 0 0 8px var(--accent-teal);
+      }
+
+      /* Glitch Effect */
+      @keyframes glitch {
+        0% { transform: translate(0); }
+        20% { transform: translate(-3px, 3px); }
+        40% { transform: translate(-3px, -3px); }
+        60% { transform: translate(3px, 3px); }
+        80% { transform: translate(3px, -3px); }
+        100% { transform: translate(0); }
+      }
+      .glitch-hover:hover {
+        text-shadow: 0 0 5px var(--accent-yellow), 0 0 10px var(--accent-red);
+        animation: glitch 0.2s infinite;
+      }
+
+
+      /* Firefly glow animations */
+      @keyframes firefly-glow-teal {
+        0%, 30%, 100% { box-shadow: 0 0 0px 0px rgba(0, 245, 212, 0); filter: drop-shadow(0 0 0px rgba(0, 245, 212, 0)); }
+        40% { box-shadow: 0 0 40px 8px rgba(0, 245, 212, 0.5); filter: drop-shadow(0 0 20px rgba(0, 245, 212, 0.5)); }
+        50% { box-shadow: 0 0 20px 4px rgba(0, 245, 212, 0.25); filter: drop-shadow(0 0 10px rgba(0, 245, 212, 0.25)); }
+      }
+      @keyframes firefly-glow-magenta {
+        0%, 40%, 100% { box-shadow: 0 0 0px 0px rgba(255, 0, 240, 0); filter: drop-shadow(0 0 0px rgba(255, 0, 240, 0)); }
+        50% { box-shadow: 0 0 45px 9px rgba(255, 0, 240, 0.45); filter: drop-shadow(0 0 25px rgba(255, 0, 240, 0.45)); }
+        60% { box-shadow: 0 0 22px 5px rgba(255, 0, 240, 0.2); filter: drop-shadow(0 0 12px rgba(255, 0, 240, 0.2)); }
+      }
+       @keyframes firefly-glow-yellow {
+        0%, 55%, 100% { box-shadow: 0 0 0px 0px rgba(240, 255, 0, 0); filter: drop-shadow(0 0 0px rgba(240, 255, 0, 0)); }
+        65% { box-shadow: 0 0 40px 8px rgba(240, 255, 0, 0.4); filter: drop-shadow(0 0 20px rgba(240, 255, 0, 0.4)); }
+        75% { box-shadow: 0 0 20px 4px rgba(240, 255, 0, 0.2); filter: drop-shadow(0 0 10px rgba(240, 255, 0, 0.2)); }
+      }
+      
+      @keyframes firefly-glow-blue {
+        0%, 50%, 100% { box-shadow: 0 0 0px 0px rgba(0, 119, 255, 0); filter: drop-shadow(0 0 0px rgba(0, 119, 255, 0)); }
+        60% { box-shadow: 0 0 40px 8px rgba(0, 119, 255, 0.4); filter: drop-shadow(0 0 20px rgba(0, 119, 255, 0.4)); }
+        70% { box-shadow: 0 0 20px 4px rgba(0, 119, 255, 0.2); filter: drop-shadow(0 0 10px rgba(0, 119, 255, 0.2)); }
+      }
+
+      .animate-glow-teal { animation: firefly-glow-teal 5s infinite ease-in-out; }
+      .animate-glow-magenta { animation: firefly-glow-magenta 7s infinite ease-in-out; }
+      .animate-glow-yellow { animation: firefly-glow-yellow 8s infinite ease-in-out; }
+      .animate-glow-blue { animation: firefly-glow-blue 6s infinite ease-in-out; }
+
+      /* Skills Scroller */
+      .skills-scroller {
+        background: rgba(10, 10, 15, 0.5);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        width: 100%;
+        overflow: hidden;
+        padding: 1.25rem 0;
+        border-top: 1px solid var(--bg-light);
+        border-bottom: 1px solid var(--bg-light);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+      }
+      .skills-scroller__inner {
+        display: flex;
+        gap: 5rem; /* Control spacing between logos */
+        width: max-content;
+        animation: scroll 30s linear infinite;
+      }
+      .skills-scroller__inner img {
+        height: 80px;
+        width: 80px;
+        object-fit: contain;
+        opacity: 0.9;
+        transition: all 0.3s ease;
+      }
+      .skills-scroller__inner img:hover {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+      @keyframes scroll {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);
+        }
+      }
+
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "framer-motion": "https://esm.sh/framer-motion@^12.23.3",
+    "@google/genai": "https://esm.sh/@google/genai@^1.9.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel" data-type="module" src="./index.tsx"></script>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
